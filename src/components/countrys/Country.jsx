@@ -15,6 +15,7 @@ const Country = ({
 
   const handelVisited = () => {
     if (!visited) {
+      alert(`${name?.common} Country Visited`);
       localStorage.setItem(
         `visiteStatus${ccn3.ccn3}`,
         JSON.stringify(!visited)
