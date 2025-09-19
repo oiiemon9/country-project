@@ -12,6 +12,7 @@ function App() {
     ? JSON.parse(localStorage.getItem('visitedCountry'))
     : [];
   const [visitedCountry, setVisitedCountry] = useState(browserData);
+  const [searchValue, setSearchValue] = useState('');
 
   const localStorageSet = (data) =>
     localStorage.setItem('visitedCountry', JSON.stringify(data));
@@ -30,6 +31,12 @@ function App() {
 
     setVisitedCountry(finalVisited);
   };
+
+  const searchCountry = (e) => {
+    const inputValue = e.target.value.trim().toLowerCase();
+    setSearchValue(inputValue);
+  };
+
   return (
     <>
       <h1 className="text-4xl font-bold">
@@ -46,20 +53,32 @@ function App() {
               />
             </div>
             <div>
-              <div>{visitedC.name.common}</div>
-              <div className="text-xs uppercase font-semibold opacity-60">
+              <h4>{visitedC.name.common}</h4>
+              <p className="text-xs uppercase font-semibold opacity-60">
                 {visitedC.name.official}
-              </div>
+              </p>
             </div>
           </li>
         ))}
       </ul>
+      <div className="py-10">
+        <label className="mr-2" htmlFor="">
+          Search :
+        </label>
+        <input
+          onChange={(e) => searchCountry(e)}
+          type="search"
+          placeholder="Search countries..."
+          className="input"
+        />
+      </div>
       <div className="mt-5">
         <Suspense fallback={<Loader></Loader>}>
           <Countrys
             dataPromises={dataPromises}
             handelVisitedCountry={handelVisitedCountry}
             handelNotVisited={handelNotVisited}
+            searchValue={searchValue}
           ></Countrys>
         </Suspense>
       </div>

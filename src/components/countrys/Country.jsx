@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
+import Popup from './Popup';
 
-const Country = ({ country, handelVisitedCountry, handelNotVisited }) => {
+const Country = ({
+  country,
+  handelVisitedCountry,
+  handelNotVisited,
+  popupDataFun,
+}) => {
   const { flags, name, area, cca3, ccn3 } = country;
   const status = JSON.parse(localStorage.getItem(`visiteStatus${ccn3.ccn3}`))
     ? true
@@ -24,6 +30,10 @@ const Country = ({ country, handelVisitedCountry, handelNotVisited }) => {
       handelNotVisited(country);
     }
   };
+  const openModal = (d) => {
+    popupDataFun(d);
+  };
+
   return (
     <div>
       <div
@@ -38,8 +48,14 @@ const Country = ({ country, handelVisitedCountry, handelNotVisited }) => {
             alt={flags?.flags?.alt}
           />
         </figure>
+
         <div className="card-body">
-          <h2 className="card-title">{name.common}</h2>
+          <h2
+            onClick={() => openModal(country)}
+            className="card-title cursor-pointer"
+          >
+            {name.common}
+          </h2>
           <p>
             Area: {area.area}{' '}
             {area.area > 300000 ? 'Big Country' : 'Small Country'}
@@ -47,7 +63,7 @@ const Country = ({ country, handelVisitedCountry, handelNotVisited }) => {
           <p>Country Code: {cca3.cca3}</p>
           <div className="card-actions justify-end">
             <button onClick={handelVisited} className="btn btn-primary">
-              {visited ? 'Visited Country' : 'No Visit'}
+              {visited ? 'Visited Country' : 'Visit'}
             </button>
           </div>
         </div>
