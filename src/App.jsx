@@ -39,10 +39,10 @@ function App() {
 
   return (
     <>
-      <h1 className="text-4xl font-bold">
+      <h1 className="text-2xl md:text-4xl font-bold">
         My visited country: {visitedCountry.length}
       </h1>
-      <ul className="list bg-base-100 rounded-box shadow-md w-fit flex-row flex-wrap">
+      <ul className="list bg-base-100 rounded-box shadow-md md:w-fit md:flex-row flex-wrap">
         {visitedCountry.map((visitedC, index) => (
           <li key={index} className="list-row">
             <div>

@@ -6,9 +6,6 @@ const Popup = ({ popupData }) => {
     countryCode = Object.keys(popupData?.currencies?.currencies);
   }
 
-  // const key = Object.keys(countryCode);
-  console.log(popupData?.currencies?.currencies[countryCode[0]]);
-
   return (
     <div>
       <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
@@ -35,7 +32,7 @@ const Popup = ({ popupData }) => {
           </div>
           <div className="modal-action">
             <form method="dialog">
-              <button className="btn">Close</button>
+              <button className="btn btn-primary">Close</button>
             </form>
           </div>
         </div>
