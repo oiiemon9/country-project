@@ -1,21 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Country = ({ country }) => {
-  const { flags, name } = country;
+const Country = ({ country, handelVisitedCountry, handelNotVisited }) => {
+  const [visited, setVisited] = useState(false);
+  const { flags, name, area, cca3 } = country;
+  const handelVisited = () => {
+    if (!visited) {
+      setVisited(!visited);
+      handelVisitedCountry(country);
+    } else {
+      setVisited(!visited);
+      handelNotVisited(country);
+    }
+  };
   return (
     <div>
-      <div className="card bg-base-100 shadow-sm">
+      <div
+        className={`card bg-base-100 shadow-sm ${
+          visited && 'bg-green-800 text-white'
+        }`}
+      >
         <figure>
-          <img src={flags.flags.png} alt="Shoes" />
+          <img
+            className="h-52"
+            src={flags?.flags?.png}
+            alt={flags?.flags?.alt}
+          />
         </figure>
         <div className="card-body">
           <h2 className="card-title">{name.common}</h2>
           <p>
-            A card component has a figure, a body part, and inside body there
-            are title and actions parts
+            Area: {area.area}{' '}
+            {area.area > 300000 ? 'Big Country' : 'Small Country'}
           </p>
+          <p>Country Code: {cca3.cca3}</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-primary">Buy Now</button>
+            <button onClick={handelVisited} className="btn btn-primary">
+              {visited ? 'Visited Country' : 'No Visit'}
+            </button>
           </div>
         </div>
       </div>
