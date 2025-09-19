@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
 
 const Country = ({ country, handelVisitedCountry, handelNotVisited }) => {
-  const [visited, setVisited] = useState(false);
-  const { flags, name, area, cca3 } = country;
+  const { flags, name, area, cca3, ccn3 } = country;
+  const status = JSON.parse(localStorage.getItem(`visiteStatus${ccn3.ccn3}`))
+    ? true
+    : false;
+  const [visited, setVisited] = useState(status);
+
   const handelVisited = () => {
     if (!visited) {
+      localStorage.setItem(
+        `visiteStatus${ccn3.ccn3}`,
+        JSON.stringify(!visited)
+      );
       setVisited(!visited);
       handelVisitedCountry(country);
     } else {
+      localStorage.setItem(
+        `visiteStatus${ccn3.ccn3}`,
+        JSON.stringify(!visited)
+      );
       setVisited(!visited);
       handelNotVisited(country);
     }
